@@ -42,8 +42,6 @@
       }else{
         var paruid = param('uid');
       }
-      console.log(c);
-      console.log(d);
       $.get("assets/" + c + ".html?w=" + time,function(x,y,z){
           $( d ).html( x );
       });
